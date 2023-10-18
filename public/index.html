@@ -1,27 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riskquest Ping Pong</title>
+    <title>Game Results</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: orange;
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 3px;
         }
-        p {
+
+        body {
+            background-color: gold;
+        }
+        p, label, table, th, td, h1 {
             font-family: Helvetica, Arial, sans-serif;
-            font-size: 64px;
-            font-weight: bold;
-            color: white;
+            font-size: 16px;
+            font-weight: medium;
+            color: black;
         }
     </style>
 </head>
+
 <body>
-    <p>🏓 RiskQuest Ping Pong 🏓</p>
+    <h1>🏓 RiskQuest Ping Pong 🏓</h1>
+
+    <form id="gameForm">
+        <label for="winner">Winner:</label>
+        <select id="winner" name="winner" required>
+            <option hidden disabled selected value></option>
+            <select id="loser" name="loser" required>
+        </select>
+        <br>
+
+        <label for="loser">Loser:</label>
+        <select id="loser" name="loser" required>
+            <option hidden disabled selected value></option>
+        </select>
+        <br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    
+    <table id="gameTable">
+        <thead>
+            <tr>
+                <th>Winner</th>
+                <th>Loser</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        // Function to fetch user data and populate select boxes
+        async function populateUserOptions() {
+            const usersResponse = await fetch('/api/v1/users');
+            const usersData = await usersResponse.json();
+            
+            const winnerSelect = document.getElementById('winner');
+            const loserSelect = document.getElementById('loser');
+            
+            usersData.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.username;
+                option.textContent = user.username;
+                winnerSelect.appendChild(option);
+                loserSelect.appendChild(option.cloneNode(true));
+            });
+        }
+
+        // Call the function to populate the select boxes when the page loads
+        populateUserOptions();
+
+        // Function to fetch data from the API and populate the table
+        async function fetchGameData() {
+            const response = await fetch('/api/v1/games?limit=3');
+            const data = await response.json();
+            const tableBody = document.querySelector('#gameTable tbody');
+            data.forEach(game => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = game.winner;
+                row.insertCell(1).textContent = game.loser;
+                row.insertCell(2).textContent = game.dt;
+            });
+        }
+
+        document.getElementById('gameForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const formData = new FormData(this);
+            fetch('/api/v1/games', {
+                method: 'POST',
+                body: JSON.stringify({
+                    winner: formData.get('winner'),
+                    loser: formData.get('loser')
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Game result submitted successfully.');
+                    // You can add additional logic here if needed
+                } else {
+                    alert('Failed to submit game result: {response}');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+        fetchGameData();
+    </script>
 </body>
+
 </html>
