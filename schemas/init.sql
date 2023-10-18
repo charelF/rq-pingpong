@@ -1,9 +1,9 @@
+DROP TABLE IF EXISTS games;  -- this one first due to foreign key constraints
 DROP TABLE IF EXISTS users;
+
 CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(20) PRIMARY KEY
 );
-
-DROP TABLE IF EXISTS games;
 CREATE TABLE IF NOT EXISTS games (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     winner VARCHAR(20) NOT NULL,
