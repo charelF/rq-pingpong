@@ -1,0 +1,11 @@
+INSERT INTO users (username) VALUES ('spongebob');
+INSERT INTO users (username) VALUES ('mrkrabs');
+INSERT INTO users (username) VALUES ('patrick');
+INSERT INTO games (winner, loser) VALUES ('spongebob', 'mrkrabs');
+INSERT INTO games (winner, loser) VALUES ('patrick', 'mrkrabs');
+INSERT INTO games (winner, loser) VALUES ('patrick', 'mrkrabs');
+INSERT INTO games (winner, loser) VALUES ('spongebob', 'patrick');
+INSERT INTO games (winner, loser) VALUES ('patrick', 'spongebob');
+INSERT INTO games (winner, loser) VALUES ('spongebob', 'mrkrabs');
+INSERT INTO games (winner, loser) VALUES ('mrkrabs', 'spongebob');
+INSERT INTO games (winner, loser) VALUES ('mrkrabs', 'patrick');
