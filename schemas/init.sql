@@ -1,13 +1,14 @@
--- DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
-    username varchar(20) PRIMARY KEY
+    username VARCHAR(20) PRIMARY KEY
 );
 
 DROP TABLE IF EXISTS games;
 CREATE TABLE IF NOT EXISTS games (
-    winner varchar(20) NOT NULL,
-    loser varchar(20) NOT NULL,
-    datetime datetime DEFAULT (datetime('now')),
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    winner VARCHAR(20) NOT NULL,
+    loser VARCHAR(20) NOT NULL,
+    dt datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
     FOREIGN KEY (winner) REFERENCES users(username),
     FOREIGN KEY (loser) REFERENCES users(username)
 );
