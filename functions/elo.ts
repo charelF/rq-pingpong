@@ -18,7 +18,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
             let E_A = 1 / (1 + Math.pow(10, (R_B - R_A) / 400));
             let E_B = 1 - E_A;
             ratings.set(winner, R_A + K * (1 - E_A));
-            ratings.set(loser, R_B - E_B);
+            ratings.set(loser, R_B - K * E_B);
         }
         return ratings
     }
