@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: gold;
+            background-color: #faa634;
         }
         p, label, table, th, td, h1 {
             font-family: Helvetica, Arial, sans-serif;
@@ -44,7 +44,21 @@
         <input type="submit" value="Submit">
     </form>
     <br>
+
+    <h1>ELO rankings</h1>
+    <table id="eloTable">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>ELO</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <br>
     
+    <h1>Recent games</h1>
     <table id="gameTable">
         <thead>
             <tr>
@@ -55,6 +69,15 @@
         </thead>
         <tbody></tbody>
     </table>
+
+    <br>
+
+    <h1>Create a new user</h1>
+    <form id="userForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br>
+        <input type="submit" value="Submit">
+    </form>
 
     <script>
         // Function to fetch user data and populate select boxes
@@ -89,6 +112,20 @@
                 row.insertCell(2).textContent = game.dt;
             });
         }
+        fetchGameData();
+
+        // Function to fetch data from the API and populate the table
+        async function fetchELO() {
+            const response = await fetch('/elo');
+            const data = await response.json();
+            const tableBody = document.querySelector('#eloTable tbody');
+            data.forEach(entry => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = entry.username;
+                row.insertCell(1).textContent = entry.score;
+            });
+        }
+        fetchELO();
 
         document.getElementById('gameForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
@@ -105,8 +142,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Game result submitted successfully.');
-                    // You can add additional logic here if needed
+                    alert('Game result submitted successfully. Refresh the page to see the game int the list');
                 } else {
                     alert('Failed to submit game result: {response}');
                 }
@@ -115,7 +151,26 @@
                 console.error('Error:', error);
             });
         });
-        fetchGameData();
+
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const formData = new FormData(this);
+            const username = formData.get('username')
+            fetch(`/api/v1/users/${username}`, {method: 'POST'})
+            .then(response => {
+                if (response.ok) {
+                    alert('New user added succesfully. Refresh the page to see the username in the dropdown.');
+                } else {
+                    alert('Failed to create new user');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+
+        
     </script>
 </body>
 

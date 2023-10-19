@@ -14,3 +14,7 @@ Start:
 ```
 npx wrangler pages dev public --d1=DB
 ```
+
+
+to get ts support (https://developers.cloudflare.com/pages/platform/functions/typescript/):
+- npm install --save-dev typescript @cloudflare/workers-types
