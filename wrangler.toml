@@ -1,6 +1,0 @@
-# If you are only using Pages + D1, you only need the below in your wrangler.toml to interact with D1 locally.
-[[d1_databases]]
-binding = "DB" # Should match preview_database_id
-database_name = "riskquest-pingpong"
-database_id = "046f4e35-c142-43a0-908b-720b3312103c"
-preview_database_id = "DB" # Required for Pages local development
