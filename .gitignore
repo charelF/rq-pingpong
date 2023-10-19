@@ -133,3 +133,4 @@ dist
 .wrangler
 .env
 wrangler.toml
+.DS_Store

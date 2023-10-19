@@ -82,7 +82,7 @@
     <script>
         // Function to fetch user data and populate select boxes
         async function populateUserOptions() {
-            const usersResponse = await fetch('/api/v1/users');
+            const usersResponse = await fetch('/api/users');
             const usersData = await usersResponse.json();
             
             const winnerSelect = document.getElementById('winner');
@@ -102,7 +102,7 @@
 
         // Function to fetch data from the API and populate the table
         async function fetchGameData() {
-            const response = await fetch('/api/v1/games?limit=3');
+            const response = await fetch('/api/games?limit=3');
             const data = await response.json();
             const tableBody = document.querySelector('#gameTable tbody');
             data.forEach(game => {
@@ -130,7 +130,7 @@
         document.getElementById('gameForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
             const formData = new FormData(this);
-            fetch('/api/v1/games', {
+            fetch('/api/games', {
                 method: 'POST',
                 body: JSON.stringify({
                     winner: formData.get('winner'),
@@ -156,7 +156,7 @@
             event.preventDefault(); // Prevent the default form submission
             const formData = new FormData(this);
             const username = formData.get('username')
-            fetch(`/api/v1/users/${username}`, {method: 'POST'})
+            fetch(`/api/users/${username}`, {method: 'POST'})
             .then(response => {
                 if (response.ok) {
                     alert('New user added succesfully. Refresh the page to see the username in the dropdown.');
