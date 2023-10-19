@@ -132,3 +132,4 @@ dist
 
 .wrangler
 .env
+wrangler.toml
