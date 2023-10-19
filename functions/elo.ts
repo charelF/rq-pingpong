@@ -25,7 +25,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     const db = context.env.DB
     const stmt = db.prepare("SELECT * FROM games ORDER BY dt DESC LIMIT 10000")
     const { results } = await stmt.all()
-    const matches: Match[] = results.map(item => [item.winner, item.looser])
+    const matches: Match[] = results.map(item => [item.winner, item.loser])
+    console.log(JSON.stringify(matches))
     let eloRatings = Object.fromEntries(compute_ELO(matches));
     const eloList = Object.keys(eloRatings).map(key => {
         const score = Math.floor(eloRatings[key])
