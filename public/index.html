@@ -3,91 +3,74 @@
 
 <head>
     <title>Game Results</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 3px;
-        }
-
-        body {
-            background-color: #faa634;
-        }
-        p, label, table, th, td, h1 {
-            font-family: Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            font-weight: medium;
-            color: black;
-        }
-    </style>
+    <link href="tailwind.css" rel="stylesheet">
 </head>
 
 <body>
-    <h1>🏓 RiskQuest Ping Pong 🏓</h1>
+    <div class="mx-auto my-6 max-w-lg bg-orange-200 flex flex-col gap-y-6 [&>*]:bg-white/50">
+        <h1 class="text-center font-extrabold text-3xl text-black/80">🏓 RiskQuest Ping Pong 🏓</h1>
+        <form id="gameForm">
+            <label for="winner">Winner:</label>
+            <select id="winner" name="winner" required>
+                <option hidden disabled selected value></option>
+                <select id="loser" name="loser" required>
+                </select>
+                <br>
 
-    <form id="gameForm">
-        <label for="winner">Winner:</label>
-        <select id="winner" name="winner" required>
-            <option hidden disabled selected value></option>
-            <select id="loser" name="loser" required>
-        </select>
+                <label for="loser">Loser:</label>
+                <select id="loser" name="loser" required>
+                    <option hidden disabled selected value></option>
+                </select>
+                <br>
+
+                <input type="submit" value="Submit">
+        </form>
+
+        <h1>ELO rankings</h1>
+        <table id="eloTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>ELO</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
         <br>
 
-        <label for="loser">Loser:</label>
-        <select id="loser" name="loser" required>
-            <option hidden disabled selected value></option>
-        </select>
+        <h1>Recent games</h1>
+        <table id="gameTable">
+            <thead>
+                <tr>
+                    <th>Winner</th>
+                    <th>Loser</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
         <br>
 
-        <input type="submit" value="Submit">
-    </form>
-    <br>
+        <h1>Create a new user</h1>
+        <form id="userForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br>
+            <input type="submit" value="Submit">
+        </form>
 
-    <h1>ELO rankings</h1>
-    <table id="eloTable">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>ELO</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <br>
-    
-    <h1>Recent games</h1>
-    <table id="gameTable">
-        <thead>
-            <tr>
-                <th>Winner</th>
-                <th>Loser</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <br>
-
-    <h1>Create a new user</h1>
-    <form id="userForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br>
-        <input type="submit" value="Submit">
-    </form>
+    </div>
 
     <script>
         // Function to fetch user data and populate select boxes
         async function populateUserOptions() {
             const usersResponse = await fetch('/api/users');
             const usersData = await usersResponse.json();
-            
+
             const winnerSelect = document.getElementById('winner');
             const loserSelect = document.getElementById('loser');
-            
+
             usersData.forEach(user => {
                 const option = document.createElement('option');
                 option.value = user.username;
@@ -127,7 +110,7 @@
         }
         fetchELO();
 
-        document.getElementById('gameForm').addEventListener('submit', function(event) {
+        document.getElementById('gameForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
             const formData = new FormData(this);
             fetch('/api/games', {
@@ -140,37 +123,37 @@
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => {
-                if (response.ok) {
-                    alert('Game result submitted successfully. Refresh the page to see the game int the list');
-                } else {
-                    alert('Failed to submit game result: {response}');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response => {
+                    if (response.ok) {
+                        alert('Game result submitted successfully. Refresh the page to see the game int the list');
+                    } else {
+                        alert('Failed to submit game result: {response}');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
 
-        document.getElementById('userForm').addEventListener('submit', function(event) {
+        document.getElementById('userForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
             const formData = new FormData(this);
             const username = formData.get('username')
-            fetch(`/api/users/${username}`, {method: 'POST'})
-            .then(response => {
-                if (response.ok) {
-                    alert('New user added succesfully. Refresh the page to see the username in the dropdown.');
-                } else {
-                    alert('Failed to create new user');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            fetch(`/api/users/${username}`, { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        alert('New user added succesfully. Refresh the page to see the username in the dropdown.');
+                    } else {
+                        alert('Failed to create new user');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
 
 
-        
+
     </script>
 </body>
 
