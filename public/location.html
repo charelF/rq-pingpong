@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello, World!</title>
+</head>
+
+<body>
+    <p>Coordinates: <span id="coordinates">N/A</span></p>
+</body>
+
+<script>
+    if (navigator.permissions && navigator.permissions.query) {
+        //try permissions APIs first
+        navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+            // Will return ['granted', 'prompt', 'denied']
+            const permission = result.state;
+            if (permission === 'granted' || permission === 'prompt') {
+                _onGetCurrentLocation();
+            }
+        });
+    } else if (navigator.geolocation) {
+        //then Navigation APIs
+        _onGetCurrentLocation();
+    }
+
+    function _onGetCurrentLocation() {
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        };
+        navigator.geolocation.getCurrentPosition(function (position) {
+            //use coordinates
+            const marker = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            document.getElementById("coordinates").textContent = JSON.stringify(marker)
+        }, function (error) {
+            //error handler here
+        }, options)
+    }
+
+</script>
+
+</html>
