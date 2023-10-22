@@ -6,40 +6,65 @@
 </head>
 
 <body>
+    <div id="debug"> </div>
     <p>Coordinates: <span id="coordinates">N/A</span></p>
 </body>
 
 <script>
-    if (navigator.permissions && navigator.permissions.query) {
-        //try permissions APIs first
-        navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
-            // Will return ['granted', 'prompt', 'denied']
-            const permission = result.state;
-            if (permission === 'granted' || permission === 'prompt') {
-                _onGetCurrentLocation();
-            }
-        });
-    } else if (navigator.geolocation) {
-        //then Navigation APIs
-        _onGetCurrentLocation();
-    }
+    var div = document.getElementById('debug');
+    div.innerHTML += 'In script <br>';
 
-    function _onGetCurrentLocation() {
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        };
+    // if (navigator.permissions && navigator.permissions.query) {
+    //     div.innerHTML += `navigator.permissions ${JSON.stringify(navigator.permissions)} <br>`;
+    //     div.innerHTML += `navigator.permissions.query ${JSON.stringify(navigator.permissions.query)} <br>`;
+    //     div.innerHTML += `navigator.permissions.query({ name: 'geolocation' }) ${JSON.stringify(navigator.permissions.query({ name: 'geolocation' }))} <br>`;
+
+    //     //try permissions APIs first
+    //     navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+    //         // Will return ['granted', 'prompt', 'denied']
+
+    //         const permission = result.state;
+    //         if (permission === 'granted' || permission === 'prompt') {
+    //             _onGetCurrentLocation();
+    //         }
+    //     });
+    // } else if (navigator.geolocation) {
+    //     //then Navigation APIs
+
+    //     _onGetCurrentLocation();
+    // }
+
+    // function _onGetCurrentLocation() {
+    //     const options = {
+    //         enableHighAccuracy: true,
+    //         timeout: 10000,
+    //         maximumAge: 0
+    //     };
+    //     navigator.geolocation.getCurrentPosition(function (position) {
+    //         //use coordinates
+    //         const marker = {
+    //             lat: position.coords.latitude,
+    //             lng: position.coords.longitude
+    //         };
+    //         document.getElementById("coordinates").textContent = JSON.stringify(marker)
+    //     }, function (error) {
+    //         //error handler here
+    //     }, options)
+    // }
+
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            //use coordinates
-            const marker = {
+            pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            document.getElementById("coordinates").textContent = JSON.stringify(marker)
-        }, function (error) {
-            //error handler here
-        }, options)
+            latt = pos.lat;
+            lngg = pos.lng;
+            div.innerHTML += `Location: ${latt}, ${lngg}`;
+        }, function () {
+        });
+    } else {
+        // Browser doesn't support Geolocation
     }
 
 </script>
