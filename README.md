@@ -9,7 +9,7 @@
 ## D1 setup
 
 Production:
-- `npx wrangler d1 execute riskquest-pingpong --file schemas/init.sql`
+- ` WARNING npx wrangler d1 execute riskquest-pingpong --file schemas/init.sql DANGER`
 
 Local:
 - `npx wrangler d1 execute riskquest-pingpong --local --file schemas/init.sql`

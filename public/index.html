@@ -7,59 +7,68 @@
 </head>
 
 <body>
-    <div class="mx-auto my-6 max-w-lg bg-orange-200 flex flex-col gap-y-6 [&>*]:bg-white/50">
+    <div class="mx-auto my-6 max-w-lg bg-white-200 flex flex-col gap-y-2 [&>*]:bg-orange-100 [&>*]:rounded-lg [&>*]:p-3">
         <h1 class="text-center font-extrabold text-3xl text-black/80">🏓 RiskQuest Ping Pong 🏓</h1>
-        <form id="gameForm">
-            <label for="winner">Winner:</label>
-            <select id="winner" name="winner" required>
-                <option hidden disabled selected value></option>
-                <select id="loser" name="loser" required>
-                </select>
-                <br>
 
-                <label for="loser">Loser:</label>
-                <select id="loser" name="loser" required>
+        <div>
+            <h2 class="font-bold text-xl text-black/80">New Game</h2>
+            <form id="gameForm">
+                <label for="winner">Winner:</label>
+                <select id="winner" name="winner" required>
+
                     <option hidden disabled selected value></option>
-                </select>
-                <br>
+                    <select id="loser" name="loser" required>
+                    </select>
+                    <br>
 
-                <input type="submit" value="Submit">
-        </form>
+                    <label for="loser">Loser:</label>
+                    <select id="loser" name="loser" required>
+                        <option hidden disabled selected value></option>
+                    </select>
+                    <br>
 
-        <h1>ELO rankings</h1>
-        <table id="eloTable">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>ELO</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+                    <input type="submit" value="Submit"
+                        class="bg-white border border-gray-300 p-1 font-medium rounded-md text-sm text-center">
+            </form>
+        </div>
 
-        <br>
+        <div>
+            <h2 class="font-bold text-xl text-black/80">ELO rankings</h2>
+            <table id="eloTable">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>ELO</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-        <h1>Recent games</h1>
-        <table id="gameTable">
-            <thead>
-                <tr>
-                    <th>Winner</th>
-                    <th>Loser</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
 
-        <br>
+        <div>
+            <h2 class="font-bold text-xl text-black/80">Recent games</h2>
+            <table id="gameTable">
+                <thead>
+                    <tr>
+                        <th>Winner</th>
+                        <th>Loser</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-        <h1>Create a new user</h1>
-        <form id="userForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username"><br>
-            <input type="submit" value="Submit">
-        </form>
-
+        <div>
+            <h2 class="font-bold text-xl text-black/80">Create a new user</h2>
+            <form id="userForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br>
+                <input type="submit" value="Submit"
+                    class="bg-white border border-gray-300 p-1 font-medium rounded-md text-sm text-center">
+            </form>
+        </div>
     </div>
 
     <script>
