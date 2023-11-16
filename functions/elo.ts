@@ -31,6 +31,6 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     const eloList = Object.keys(eloRatings).map(key => {
         const score = Math.floor(eloRatings[key])
         return {username: key, score: score};
-      }).sort((a, b) => a.score - b.score);
+      }).sort((a, b) => b.score - a.score);
     return new Response(JSON.stringify(eloList))
 }
