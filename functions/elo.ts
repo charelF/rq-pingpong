@@ -26,11 +26,31 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     const stmt = db.prepare("SELECT * FROM games ORDER BY dt DESC LIMIT 10000")
     const { results } = await stmt.all()
     const matches: Match[] = results.map(item => [item.winner, item.loser])
-    console.log(JSON.stringify(matches))
+
+      const playerStats: Record<string, { wins: number; losses: number }> = {};
+      matches.forEach(([winner, loser]) => {
+        // Update winner's stats
+        if (!playerStats[winner]) {
+          playerStats[winner] = { wins: 1, losses: 0 };
+        } else {
+          playerStats[winner].wins += 1;
+        }
+      
+        // Update loser's stats
+        if (!playerStats[loser]) {
+          playerStats[loser] = { wins: 0, losses: 1 };
+        } else {
+          playerStats[loser].losses += 1;
+        }
+      });
+
     let eloRatings = Object.fromEntries(compute_ELO(matches));
     const eloList = Object.keys(eloRatings).map(key => {
         const score = Math.floor(eloRatings[key])
-        return {username: key, score: score};
-      }).sort((a, b) => b.score - a.score);
+        const winpct = playerStats[key].wins / (playerStats[key].losses + playerStats[key].wins)
+        return {username: key, score: score, winpct:winpct};
+    }).sort((a, b) => b.score - a.score);
+
+    
     return new Response(JSON.stringify(eloList))
 }

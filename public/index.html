@@ -5,6 +5,14 @@
     <title>Game Results</title>
     <link href="tailwind.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        th, td {
+      text-align: left;
+      padding-right: 20px;
+    }
+    </style>
+
 </head>
 
 <body>
@@ -35,11 +43,12 @@
 
         <div>
             <h2 class="font-bold text-xl text-black/80">ELO rankings</h2>
-            <table id="eloTable">
+            <table id="eloTable" class="table-auto">
                 <thead>
                     <tr>
                         <th>Username</th>
-                        <th>ELO</th>
+                        <th>🏆ELO🏆</th>
+                        <th>Win %</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -116,6 +125,7 @@
                 const row = tableBody.insertRow();
                 row.insertCell(0).textContent = entry.username;
                 row.insertCell(1).textContent = entry.score;
+                row.insertCell(2).textContent = (100*entry.winpct).toFixed(1);
             });
         }
         fetchELO();
