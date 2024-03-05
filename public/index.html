@@ -126,6 +126,7 @@
                 row.insertCell(0).textContent = entry.username;
                 row.insertCell(1).textContent = entry.score;
                 row.insertCell(2).textContent = (100*entry.winpct).toFixed(1);
+                row.style.opacity = entry.opacity
             });
         }
         fetchELO();
