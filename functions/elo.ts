@@ -24,7 +24,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     }
     const db = context.env.DB
     // const stmt = db.prepare("SELECT * FROM games ORDER BY dt DESC LIMIT 10000")
-    const stmt = db.prepare("SELECT * FROM games WHERE dt >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 WEEK) ORDER BY dt DESC LIMIT 10000")
+    const stmt = db.prepare("SELECT * FROM games WHERE dt >= DATE_SUB(CURRENT_DATE(), INTERVAL 4 WEEK) ORDER BY dt DESC LIMIT 10000")
 
     const { results } = await stmt.all()
     const matches: Match[] = results.map(item => [item.winner, item.loser])
