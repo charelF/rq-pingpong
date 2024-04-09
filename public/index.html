@@ -7,17 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <style>
-        th, td {
-      text-align: left;
-      padding-right: 20px;
-    }
+        th,
+        td {
+            text-align: left;
+            padding-right: 20px;
+        }
     </style>
 
 </head>
 
 <body>
-    <div class="mx-auto my-6 max-w-lg bg-white-200 flex flex-col gap-y-2 [&>*]:bg-orange-100 [&>*]:rounded-lg [&>*]:p-3">
-        <h1 class="text-center font-extrabold text-3xl text-black/80">🏓 RiskQuest Ping Pong 🏓</h1>
+    <div
+        class="mx-auto my-6 max-w-lg bg-white-200 flex flex-col gap-y-2 [&>*]:bg-green-100 [&>*]:rounded-lg [&>*]:p-3 [&>*]:drop-shadow">
+        <div class="">
+            <div class="flex justify-center">
+                <img src="https://zandersgroup.com/app/uploads/2023/05/logo-about-1024x383.jpg" alt="W3Schools.com"
+                    width="50%"></h1>
+            </div>
+            <h1 class="text-center font-extrabold text-3xl text-black/80">🏓 Ping Pong 🏓</h1>
+
+        </div>
 
         <div>
             <h2 class="font-bold text-xl text-black/80">New Game</h2>
@@ -125,7 +134,7 @@
                 const row = tableBody.insertRow();
                 row.insertCell(0).textContent = entry.username;
                 row.insertCell(1).textContent = entry.score;
-                row.insertCell(2).textContent = (100*entry.winpct).toFixed(1);
+                row.insertCell(2).textContent = (100 * entry.winpct).toFixed(1);
                 row.style.opacity = entry.opacity
             });
         }

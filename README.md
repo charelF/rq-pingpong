@@ -5,6 +5,7 @@
 ## Local testing
 
 `npx wrangler pages dev public --d1=DB`
+`npm run build-loop`  for tailwind
 
 ## D1 setup
 
