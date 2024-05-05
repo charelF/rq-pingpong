@@ -18,11 +18,10 @@
 
 <body>
     <div
-        class="mx-auto my-6 max-w-lg bg-white-200 flex flex-col gap-y-2 [&>*]:bg-green-100 [&>*]:rounded-lg [&>*]:p-3 [&>*]:drop-shadow">
+        class="mx-auto my-2 max-w-lg bg-white-200 flex flex-col gap-y-2 [&>*]:bg-gradient-to-r from-orange-100 to-green-100 [&>*]:rounded-lg [&>*]:p-3 [&>*]:drop-shadow">
         <div class="">
             <div class="flex justify-center">
-                <img src="https://zandersgroup.com/app/uploads/2023/05/logo-about-1024x383.jpg" alt="W3Schools.com"
-                    width="50%"></h1>
+                <!-- <img src="https://zandersgroup.com/app/uploads/2023/05/logo-about-1024x383.jpg" alt="W3Schools.com" width="50%"></h1> -->
             </div>
             <h1 class="text-center font-extrabold text-3xl text-black/80">🏓 Ping Pong 🏓</h1>
 
@@ -30,20 +29,20 @@
 
         <div>
             <h2 class="font-bold text-xl text-black/80">New Game</h2>
-            <form id="gameForm">
-                <label for="winner">Winner:</label>
-                <select id="winner" name="winner" required>
-
+            <form id="gameForm" class="flex flex-col space-y-1">
+                <div>
+                    <label for="winner">Winner:</label>
+                    <select id="winner" name="winner" required>
                     <option hidden disabled selected value></option>
                     <select id="loser" name="loser" required>
                     </select>
-                    <br>
-
+                </div>
+                <div>
                     <label for="loser">Loser:</label>
                     <select id="loser" name="loser" required>
-                        <option hidden disabled selected value></option>
+                    <option hidden disabled selected value></option>
                     </select>
-                    <br>
+                </div>
 
                     <input type="submit" value="Submit"
                         class="bg-white border border-gray-300 p-1 font-medium rounded-md text-sm text-center">
@@ -81,9 +80,11 @@
 
         <div>
             <h2 class="font-bold text-xl text-black/80">Create a new user</h2>
-            <form id="userForm">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username"><br>
+            <form id="userForm" class="flex flex-col space-y-1">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username"><br>
+                </div>
                 <input type="submit" value="Submit"
                     class="bg-white border border-gray-300 p-1 font-medium rounded-md text-sm text-center">
             </form>
